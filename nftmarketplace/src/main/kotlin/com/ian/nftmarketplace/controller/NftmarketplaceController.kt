@@ -1,8 +1,9 @@
 package com.ian.nftmarketplace.controller
 
+import com.ian.nftmarketplace.exception.NFTNotFoundException
 import com.ian.nftmarketplace.model.NFT
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.HttpStatus
+import org.springframework.web.bind.annotation.*
 
 @RestController
 class NftmarketplaceController {
@@ -20,4 +21,21 @@ class NftmarketplaceController {
 
     @GetMapping("")
     fun getNFTs() = NFTs
+
+    @PostMapping("")
+    @ResponseStatus(HttpStatus.CREATED)
+    fun postNFT(@RequestBody nft: NFT): NFT {
+        val nextId = (NFTs.map { it.id }.maxOrNull() ?: 0) + 1
+        val newNft = NFT(id = nextId, name = nft.name, floor_price = nft.floor_price)
+
+        NFTs.add(nft)
+        return newNft
+    }
+
+    @GetMapping("/{id}")
+    fun getNFTById(@PathVariable id: Int): NFT? {
+        val nft = NFTs.firstOrNull { it.id == id }
+        return nft ?: throw NFTNotFoundException()
+//        return NFTs.firstOrNull { it.id == id }
+    }
 }
