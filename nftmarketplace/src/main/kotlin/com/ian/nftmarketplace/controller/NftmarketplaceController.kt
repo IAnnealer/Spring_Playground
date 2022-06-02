@@ -2,11 +2,16 @@ package com.ian.nftmarketplace.controller
 
 import com.ian.nftmarketplace.exception.NFTNotFoundException
 import com.ian.nftmarketplace.model.NFT
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
+@RequestMapping("/nfts")
 class NftmarketplaceController {
+
+    @Value("\${company_name}")
+    private lateinit var name: String
 
     private var NFTs = mutableListOf<NFT>(
         NFT(1, "CryptoPunks", 100.0),
@@ -17,7 +22,7 @@ class NftmarketplaceController {
     )
 
     @GetMapping("/homepage")
-    fun getHomePage() = "NFTs Marketplace"
+    fun getHomePage() = "$name: NFTs Marketplace"
 
     @GetMapping("")
     fun getNFTs() = NFTs
@@ -36,6 +41,5 @@ class NftmarketplaceController {
     fun getNFTById(@PathVariable id: Int): NFT? {
         val nft = NFTs.firstOrNull { it.id == id }
         return nft ?: throw NFTNotFoundException()
-//        return NFTs.firstOrNull { it.id == id }
     }
 }

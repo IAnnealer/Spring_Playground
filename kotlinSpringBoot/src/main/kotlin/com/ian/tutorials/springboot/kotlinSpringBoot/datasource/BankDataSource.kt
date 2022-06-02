@@ -4,5 +4,7 @@ import com.ian.tutorials.springboot.kotlinSpringBoot.model.Bank
 
 interface BankDataSource {
 
-    fun getBanks(): Collection<Bank>
+//    fun getBanks(): Collection<Bank>
+
+    fun retrieveBanks(): Collection<Bank>
 }
