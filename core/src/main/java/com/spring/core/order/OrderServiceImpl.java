@@ -12,8 +12,6 @@ public class OrderServiceImpl implements OrderService{
     // 인터페이스에만 의존, DIP 준수
     private final MemberRepository memberRepository;
     private final DiscountPolicy discountPolicy;
-    //  private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
-    //  private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
 
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
