@@ -1,10 +1,8 @@
-package com.example.demo.student;
+package com.example.demo.entity.student;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 
 @Service
